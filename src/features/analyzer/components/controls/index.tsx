@@ -1,8 +1,7 @@
-import { Button, Form, Input, Tabs } from 'antd';
-import { ExceptionOutlined, LinkOutlined } from '@ant-design/icons';
-import React, { FC, memo, useEffect, useState } from 'react';
-
-import { useLocation } from 'react-router-dom';
+import { Button, Form, Input, Tabs, Upload, message } from 'antd';
+import { PlayCircleTwoTone, UploadOutlined, VideoCameraTwoTone } from '@ant-design/icons';
+import { UploadChangeParam, UploadFile } from 'antd/lib/upload/interface';
+import React, { FC, memo, useState } from 'react';
 
 import { FormFields } from 'types';
 import { useAppDispatch } from 'store';
@@ -13,29 +12,46 @@ import css from './index.module.css';
 
 const { TabPane } = Tabs;
 
-function useQuery() {
-  const { search } = useLocation();
+const getValueFromEvent = (e: UploadChangeParam) => e && e.file;
 
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-}
+const isVideoFile = (file: UploadFile) => file.type?.includes('video');
 
 const Controls: FC = () => {
-  const query = useQuery();
-  const urlParam = query.get('url');
   const dispatch = useAppDispatch();
 
-  const [activeTabKey, setActiveTabKey] = useState<string>('analyze-form-url');
+  const [activeTabKey, setActiveTabKey] = useState<string>('analyze-form-video-file');
+
+  const [uploadFileList, setUploadFileList] = useState<UploadFile[]>([]);
 
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    if (form && urlParam) {
-      form.setFieldsValue({ url: urlParam });
-    }
-  }, [form, urlParam]);
-
   const handleChangeTab = (tabKey: string) => {
     setActiveTabKey(tabKey);
+  };
+
+  const beforeUpload = (file: UploadFile) => {
+    console.log(file);
+    const isVideo = isVideoFile(file);
+
+    if (!isVideo) {
+      message.error('Можно загружать только ВИДЕО файлы!');
+      return false;
+    }
+
+    return false;
+  };
+
+  const handleChangeUpload = ({ fileList }: UploadChangeParam) => {
+    if (!fileList.length) {
+      form.setFieldsValue({
+        videoFile: undefined,
+      });
+      return setUploadFileList([]);
+    }
+
+    const [file] = fileList;
+    if (!isVideoFile(file)) return;
+    setUploadFileList(fileList);
   };
 
   const onFinish = (values: FormFields) => {
@@ -59,7 +75,9 @@ const Controls: FC = () => {
       dispatch(sendDataToAnalyzis(values));
     }
 
-    dispatch(sendDataToAnalyzis(values));
+    console.log(values);
+
+    // dispatch(sendDataToAnalyzis(values));
   };
 
   return (
@@ -67,38 +85,49 @@ const Controls: FC = () => {
       activeKey={activeTabKey}
       onChange={handleChangeTab}
       tabBarExtraContent={
-        <>
-          <Button type="primary" htmlType="submit" form={activeTabKey}>
-            Анализировать
-          </Button>
-        </>
+        <Button type="primary" htmlType="submit" form={activeTabKey}>
+          Анализировать
+        </Button>
       }
     >
       <TabPane
         tab={
           <span className={css.tabTitle}>
-            <ExceptionOutlined />
+            <PlayCircleTwoTone />
             Видео
           </span>
         }
-        key="analyze-form-text"
+        key="analyze-form-video-file"
       >
-        <Form id="analyze-form-text" className={css.form} onFinish={onFinish}>
-          <Form.Item name="title" rules={[{ required: true, message: 'Введите заголовок новости!' }]}>
-            <Input size="large" placeholder="Заголовок новости" />
+        <Form id="analyze-form-video-file" form={form} className={css.form} onFinish={onFinish}>
+          <Form.Item
+            name="videoFile"
+            valuePropName="file"
+            getValueFromEvent={getValueFromEvent}
+            rules={[{ required: true, message: 'Выберите видео для анализа!' }]}
+          >
+            <Upload
+              beforeUpload={beforeUpload}
+              onChange={handleChangeUpload}
+              maxCount={1}
+              listType="picture"
+              fileList={uploadFileList}
+            >
+              <Button icon={<UploadOutlined />}>Загрузить</Button>
+            </Upload>
           </Form.Item>
         </Form>
       </TabPane>
       <TabPane
         tab={
           <span className={css.tabTitle}>
-            <LinkOutlined />
+            <VideoCameraTwoTone />
             URL на потоковое видео
           </span>
         }
-        key="analyze-form-url"
+        key="analyze-form-video-url"
       >
-        <Form id="analyze-form-url" className={css.form} onFinish={onFinish} form={form}>
+        <Form id="analyze-form-video-url" className={css.form} onFinish={onFinish} form={form}>
           <Form.Item name="url" rules={[{ required: true, message: 'Введите URL на потоковое видео!' }]}>
             <Input size="large" placeholder="URL на потоковое видео" />
           </Form.Item>
