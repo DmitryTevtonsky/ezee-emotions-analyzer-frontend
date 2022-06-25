@@ -38,6 +38,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
     const video = document.createElement('video');
 
     video.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
+    video.setAttribute('type', 'video/x-msvideo');
     video.setAttribute('controls', 'true');
     video.controls = true;
     console.log({ data, resultVideoPlaceholder, video });
