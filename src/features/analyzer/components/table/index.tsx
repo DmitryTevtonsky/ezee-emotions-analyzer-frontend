@@ -1,7 +1,7 @@
 import { AnalyzeInitialData } from 'types';
 import { Badge, Table } from 'antd';
+import { io } from 'socket.io-client';
 import React, { FC, memo, useEffect } from 'react';
-import SockJS from 'sockjs-client';
 
 import css from './index.module.css';
 
@@ -57,18 +57,15 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
 
     resultVideoPlaceholder?.appendChild(video);
 
-    const sockjs = new SockJS('/echo');
+    const socket = io('http://84.252.137.43:3000/ws');
 
-    sockjs.onopen = () => {
-      console.log('onopen', sockjs);
-      sockjs.send('kek');
-    };
-    sockjs.onmessage = (e: any) => {
-      console.log('onmessage', e.data);
-    };
-    sockjs.onclose = () => {
-      console.log('onclose');
-    };
+    socket.on('connect', () => {
+      console.log('connect'); // x8WIv7-mJelg7on_ALbx
+    });
+
+    socket.on('disconnect', () => {
+      console.log('disconnect'); // undefined
+    });
   }, [data]);
 
   return (
