@@ -2,6 +2,8 @@ import { AnalyzeInitialData } from 'types';
 import { Badge, Table } from 'antd';
 import React, { FC, memo, useEffect } from 'react';
 
+import { selectAnalyzisData } from 'features/analyzer/redux/selectors';
+import { useAppSelector } from 'store';
 import css from './index.module.css';
 
 const { Column } = Table;
@@ -32,6 +34,7 @@ interface TableProps {
 }
 
 const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
+  const dominantEmotion = useAppSelector(selectAnalyzisData);
   useEffect(() => {
     console.log(data);
     const fileName = data.pathToOutputVideo.split('/').pop();
@@ -56,6 +59,8 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
 
     resultVideoPlaceholder?.appendChild(video);
   }, [data]);
+
+  console.log({ dominantEmotion });
 
   return (
     <>

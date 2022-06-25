@@ -13,6 +13,11 @@ export type AnalyzeInitialData = {
   pathToOutputVideo: string;
 };
 
+export type DominantEmotion = {
+  emotion: string;
+  value: number;
+};
+
 export type AnalyzisData = {
   id: number;
   primary_source_url?: string;

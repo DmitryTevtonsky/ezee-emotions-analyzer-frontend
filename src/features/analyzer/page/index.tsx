@@ -1,15 +1,16 @@
 import { io } from 'socket.io-client';
 import React, { FC, useEffect } from 'react';
 
-import { AnalyzeInitialData } from 'types';
+import { AnalyzeInitialData, DominantEmotion } from 'types';
 import { fold } from 'libs/remote';
-import { useAppSelector } from 'store';
+import { useAppDispatch, useAppSelector } from 'store';
 
 import { Loader } from 'core/components/loader';
 
 import { Controls, ResultTable } from '../components';
 import { selectInitialData } from '../redux/selectors';
 
+import { setAnalysisData } from '../redux/slice';
 import css from './index.module.css';
 
 const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
@@ -26,6 +27,7 @@ const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
 );
 
 const AnalyzerIndex: FC = () => {
+  const dispatch = useAppDispatch();
   const analyzeInitialData = useAppSelector(selectInitialData);
 
   useEffect(() => {
@@ -35,8 +37,10 @@ const AnalyzerIndex: FC = () => {
       console.log('connect'); // x8WIv7-mJelg7on_ALbx
     });
 
-    socket.on('finished', (msg: any) => {
+    socket.on('finished', (msg: DominantEmotion) => {
       console.log('finished', msg); // undefined
+
+      dispatch(setAnalysisData(msg));
     });
 
     socket.on('disconnect', () => {

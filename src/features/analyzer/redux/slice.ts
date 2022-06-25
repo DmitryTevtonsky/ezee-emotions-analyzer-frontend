@@ -1,16 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { AnalyzeInitialData, AnalyzisData, FormFields } from 'types';
+import { AnalyzeInitialData, DominantEmotion, FormFields } from 'types';
 import { RemoteData, initialized } from 'libs/remote';
 
 export interface AnalyzerState {
   initialData: RemoteData<AnalyzeInitialData>;
-  analyzisData: RemoteData<AnalyzisData>;
+  analyzisData: DominantEmotion | null;
 }
 
 const initialState: AnalyzerState = {
   initialData: initialized() as RemoteData<AnalyzeInitialData>,
-  analyzisData: initialized() as RemoteData<AnalyzisData>,
+  analyzisData: null,
 };
 
 export const analyzerSlice = createSlice({
@@ -22,7 +22,7 @@ export const analyzerSlice = createSlice({
       state.initialData = action.payload;
     },
     checkAnalysisData: (_state, _action: PayloadAction<string>) => {},
-    setAnalysisData: (state, action: PayloadAction<RemoteData<AnalyzisData>>) => {
+    setAnalysisData: (state, action: PayloadAction<DominantEmotion>) => {
       state.analyzisData = action.payload;
     },
   },

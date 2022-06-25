@@ -1,9 +1,9 @@
-import { AnalyzeInitialData, AnalyzisData } from 'types';
+import { AnalyzeInitialData, DominantEmotion } from 'types';
 import { RemoteData } from 'libs/remote';
 import { RootState } from 'store';
 
 const selectInitialData = (state: RootState): RemoteData<AnalyzeInitialData> => state.analyzer.initialData;
 
-const selectAnalyzisData = (state: RootState): RemoteData<AnalyzisData> => state.analyzer.analyzisData;
+const selectAnalyzisData = (state: RootState): DominantEmotion | null => state.analyzer.analyzisData;
 
 export { selectInitialData, selectAnalyzisData };
