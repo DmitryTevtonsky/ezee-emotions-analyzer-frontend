@@ -57,7 +57,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
 
     resultVideoPlaceholder?.appendChild(video);
 
-    const socket = io('http://84.252.137.43:3000');
+    const socket = io('ws://84.252.137.43:3000');
 
     socket.on('connect', () => {
       console.log('connect'); // x8WIv7-mJelg7on_ALbx
