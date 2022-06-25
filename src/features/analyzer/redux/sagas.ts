@@ -27,18 +27,15 @@ function* analyzerSaga(): SagaIterator {
 
         formData.append('videoFile', payload.video!);
 
-        const { data, status }: AxiosResponse<AnalyzeInitialData> = yield axiosInstance.post('/api/class', formData);
+        const { data, status }: AxiosResponse<AnalyzeInitialData> = yield axiosInstance.post(
+          '/api/init-class-analyze',
+          formData
+        );
 
         console.log('data, status', data, status);
-
-        // yield put(setInitialData(success({ text: data.text, title: data.title, ar_id: data.ar_id })));
-
-        // yield put(checkAnalysisData(data.ar_id));
       } catch (error) {
         const { response, config } = error as AxiosError;
         console.log({ status: response?.status, requestUrl: config?.url || '' });
-
-        // yield put(setInitialData(failure({ status: response?.status, requestUrl: config?.url || '' })));
       }
     }),
     // takeLatest(checkAnalysisData, function* checkAnalysisDataSaga({ payload }) {
