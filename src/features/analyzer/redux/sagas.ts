@@ -33,7 +33,14 @@ function* analyzerSaga(): SagaIterator {
         );
 
         console.log('data, status', data, status);
+
         yield put(setInitialData(success(data)));
+
+        const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
+        const video = document.createElement('video');
+        video.setAttribute('src', 'http://techslides.com/demos/sample-videos/small.mp4');
+        video.setAttribute('type', 'video/mp4');
+        resultVideoPlaceholder?.appendChild(video);
       } catch (error) {
         const { response, config } = error as AxiosError;
         console.log({ status: response?.status, requestUrl: config?.url || '' });

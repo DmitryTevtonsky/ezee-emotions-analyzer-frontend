@@ -30,24 +30,27 @@ interface TableProps {
 
 const ResultTable: FC<TableProps> = () => {
   return (
-    <Table dataSource={fakeData} rowKey="id">
-      <Table.Column title="ID ученика" dataIndex="id" key="id" />
+    <>
+      <Table dataSource={fakeData} rowKey="id">
+        <Table.Column title="ID ученика" dataIndex="id" key="id" />
 
-      <Column title="ФИО" dataIndex="fullName" key="fullName" />
-      <Column title="Класс" dataIndex="class" key="class" />
-      <Column
-        title="Доминирующая эмоция"
-        dataIndex="emotion"
-        key="emotion"
-        render={(emotion: string) => (
-          <>
-            <Badge status={emotion as any} />
-            Обработка
-          </>
-        )}
-      />
-      <Column title="Действия" key="action" render={(_: any) => <a href="/#">Подробнее</a>} />
-    </Table>
+        <Column title="ФИО" dataIndex="fullName" key="fullName" />
+        <Column title="Класс" dataIndex="class" key="class" />
+        <Column
+          title="Доминирующая эмоция"
+          dataIndex="emotion"
+          key="emotion"
+          render={(emotion: string) => (
+            <>
+              <Badge status={emotion as any} />
+              Обработка
+            </>
+          )}
+        />
+        <Column title="Действия" key="action" render={(_: any) => <a href="/#">Подробнее</a>} />
+      </Table>
+      <div id="result-video-placeholder" />
+    </>
   );
 };
 

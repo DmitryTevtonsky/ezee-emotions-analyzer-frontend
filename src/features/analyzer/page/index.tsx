@@ -12,11 +12,13 @@ import { selectInitialData } from '../redux/selectors';
 import css from './index.module.css';
 
 const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
-  (data) => <>
-  Успешно: {data.path}
-  <br></br>
-  <ResultTable data={data.data}></ResultTable>
-  </>,
+  (data) => (
+    <>
+      Успешно: {data.path}
+      <br />
+      <ResultTable data={data.data} />
+    </>
+  ),
   () => <></>,
   () => <Loader />,
   () => <>request failed</>
