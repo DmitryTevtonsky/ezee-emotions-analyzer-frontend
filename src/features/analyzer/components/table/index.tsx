@@ -63,8 +63,8 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
       console.log('connect'); // x8WIv7-mJelg7on_ALbx
     });
 
-    socket.on('finished', () => {
-      console.log('finished'); // undefined
+    socket.on('finished', (msg: any) => {
+      console.log('finished', msg); // undefined
     });
 
     socket.on('disconnect', () => {
