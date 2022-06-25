@@ -39,6 +39,9 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
 
     video.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
     video.setAttribute('controls', 'true');
+    video.setAttribute('crossorigin', 'true');
+    video.setAttribute('type', 'video/mp4');
+
     video.controls = true;
     console.log({ data, resultVideoPlaceholder, video });
 
