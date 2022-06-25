@@ -8,7 +8,14 @@
     width: 100%;
 }
 
+.upload {
+    width: 100%;
+}
 
 
 
- 
+ .upload :global(.ant-upload-list-item-thumbnail) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }

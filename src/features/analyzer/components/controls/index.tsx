@@ -107,6 +107,7 @@ const Controls: FC = () => {
             rules={[{ required: true, message: 'Выберите видео для анализа!' }]}
           >
             <Upload
+              className={css.upload}
               beforeUpload={beforeUpload}
               onChange={handleChangeUpload}
               maxCount={1}
