@@ -57,7 +57,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
 
     resultVideoPlaceholder?.appendChild(video);
 
-    const sockjs = new SockJS('ws://84.252.137.43:3000/ws', '', { transports: ['websocket'] });
+    const sockjs = new SockJS('http://84.252.137.43:3000/echo', '', { transports: ['websocket'] });
 
     sockjs.onopen = () => {
       console.log('onopen', sockjs);
