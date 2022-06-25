@@ -37,7 +37,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
     const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
     const video = document.createElement('video');
 
-    video.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
+    video.setAttribute('src', `https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4`);
     video.setAttribute('controls', 'true');
     video.setAttribute('crossorigin', 'true');
     video.setAttribute('type', 'video/mp4');
