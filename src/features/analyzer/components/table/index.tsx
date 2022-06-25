@@ -42,7 +42,10 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
     video.setAttribute('crossorigin', 'true');
     video.setAttribute('type', 'video/mp4');
 
+    video.autoplay = true;
     video.controls = true;
+    video.muted = true;
+
     console.log({ data, resultVideoPlaceholder, video });
 
     video.addEventListener('error', (e) => console.log(e), { once: true });
