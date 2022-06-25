@@ -1,5 +1,5 @@
 import { AnalyzeInitialData } from 'types';
-import { Badge, Table } from 'antd';
+import { Table } from 'antd';
 import React, { FC, memo, useEffect } from 'react';
 
 import { selectAnalyzisData } from 'features/analyzer/redux/selectors';
@@ -11,19 +11,7 @@ const { Column } = Table;
 const fakeData: any[] = [
   {
     id: '1',
-    fullName: 'Иванов М.Н.',
-    class: '7Б',
-    emotion: 'processing',
-  },
-  {
-    id: '2',
-    fullName: 'Сидоров К.В.',
-    class: '7Б',
-    emotion: 'processing',
-  },
-  {
-    id: '3',
-    fullName: 'Петрова Е.В.',
+    fullName: 'Ученик/ученица',
     class: '7Б',
     emotion: 'processing',
   },
@@ -73,12 +61,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
           title="Доминирующая эмоция"
           dataIndex="emotion"
           key="emotion"
-          render={(emotion: string) => (
-            <>
-              <Badge status={emotion as any} />
-              Обработка
-            </>
-          )}
+          render={() => <>{`${dominantEmotion?.emotion} (${dominantEmotion?.value})`}</>}
         />
         <Column title="Действия" key="action" render={(_: any) => <a href="/#">Подробнее</a>} />
       </Table>
