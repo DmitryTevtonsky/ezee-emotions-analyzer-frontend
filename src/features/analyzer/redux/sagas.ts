@@ -49,7 +49,7 @@ function* analyzerSaga(): SagaIterator {
         resultVideoPlaceholder?.appendChild(video);
       } catch (error) {
         const { response, config } = error as AxiosError;
-        console.log({ status: response?.status, requestUrl: config?.url || '' });
+        console.log({ error, status: response?.status, requestUrl: config?.url || '' });
       }
     }),
     // takeLatest(checkAnalysisData, function* checkAnalysisDataSaga({ payload }) {
