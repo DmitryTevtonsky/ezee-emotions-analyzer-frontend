@@ -2,6 +2,8 @@ import { AnalyzeInitialData } from 'types';
 import { Badge, Table } from 'antd';
 import React, { FC, memo, useEffect } from 'react';
 
+import css from './index.module.css';
+
 const { Column } = Table;
 
 const fakeData: any[] = [
@@ -79,7 +81,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
         />
         <Column title="Действия" key="action" render={(_: any) => <a href="/#">Подробнее</a>} />
       </Table>
-      <div id="result-video-placeholder" style={{ width: '100%' }}>
+      <div id="result-video-placeholder" className={css.resultVideoPlaceholder}>
         Видео c результатом анализа:
       </div>
     </>
