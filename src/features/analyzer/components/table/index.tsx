@@ -31,26 +31,32 @@ interface TableProps {
 
 const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
   useEffect(() => {
-    console.log(data);
-    const fileName = data.pathToOutputVideo.split('/').pop();
+    try {
+      console.log(data);
+      const fileName = data.pathToOutputVideo.split('/').pop();
 
-    const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
-    const video = document.createElement('video');
+      const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
 
-    video.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
-    video.setAttribute('controls', 'true');
-    video.setAttribute('crossorigin', 'true');
-    video.setAttribute('type', 'video/mp4');
+      const video = document.createElement('video');
+      video.setAttribute('controls', 'true');
+      video.setAttribute('crossorigin', 'true');
+      video.autoplay = true;
+      video.controls = true;
+      video.muted = true;
 
-    video.autoplay = true;
-    video.controls = true;
-    video.muted = true;
+      const source = document.createElement('source');
+      source.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
+      source.setAttribute('type', `video/mp4`);
 
-    console.log({ data, resultVideoPlaceholder, video });
+      video.appendChild(source);
+      console.log({ data, resultVideoPlaceholder, video });
 
-    video.addEventListener('error', (e) => console.log(e), { once: true });
+      video.addEventListener('error', (e) => console.log(e), { once: true });
 
-    resultVideoPlaceholder?.appendChild(video);
+      resultVideoPlaceholder?.appendChild(video);
+    } catch (error) {
+      console.log('!!', error);
+    }
   }, [data]);
 
   return (
