@@ -80,7 +80,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
         <Column title="Действия" key="action" render={(_: any) => <a href="/#">Подробнее</a>} />
       </Table>
       <div id="result-video-placeholder" style={{ width: '100%' }}>
-        Видео:
+        Видео c результатом анализа:
       </div>
     </>
   );
