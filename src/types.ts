@@ -5,8 +5,7 @@ export type ErrorInfo = {
 
 export type FormFields = {
   url?: string;
-  text?: string;
-  title?: string;
+  video?: File;
 };
 
 export type AnalyzeInitialData = {

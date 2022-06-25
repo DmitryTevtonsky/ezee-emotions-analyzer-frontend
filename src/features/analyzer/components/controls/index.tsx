@@ -77,7 +77,7 @@ const Controls: FC = () => {
 
     console.log(values);
 
-    // dispatch(sendDataToAnalyzis(values));
+    dispatch(sendDataToAnalyzis(values));
   };
 
   return (
@@ -101,7 +101,7 @@ const Controls: FC = () => {
       >
         <Form id="analyze-form-video-file" form={form} className={css.form} onFinish={onFinish}>
           <Form.Item
-            name="videoFile"
+            name="video"
             valuePropName="file"
             getValueFromEvent={getValueFromEvent}
             rules={[{ required: true, message: 'Выберите видео для анализа!' }]}
