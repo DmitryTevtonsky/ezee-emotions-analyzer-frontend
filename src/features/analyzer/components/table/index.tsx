@@ -46,7 +46,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
 
       const source = document.createElement('source');
       source.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
-      source.setAttribute('type', `video/mp4`);
+      source.setAttribute('type', `video/webm`);
 
       video.appendChild(source);
       console.log({ data, resultVideoPlaceholder, video });
