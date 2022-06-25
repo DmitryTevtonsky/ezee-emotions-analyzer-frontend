@@ -43,6 +43,8 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
     video.controls = true;
     console.log({ data, resultVideoPlaceholder, video });
 
+    video.addEventListener('error', (e) => console.log(e), { once: true });
+
     resultVideoPlaceholder?.appendChild(video);
   }, [data]);
 
