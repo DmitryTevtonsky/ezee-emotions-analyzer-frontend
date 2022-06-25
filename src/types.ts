@@ -10,7 +10,7 @@ export type FormFields = {
 
 export type AnalyzeInitialData = {
   path?: string;
-  data: any[];
+  pathToOutputVideo: string;
 };
 
 export type AnalyzisData = {

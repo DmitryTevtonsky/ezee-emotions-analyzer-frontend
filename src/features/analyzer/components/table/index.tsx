@@ -49,7 +49,9 @@ const ResultTable: FC<TableProps> = () => {
         />
         <Column title="Действия" key="action" render={(_: any) => <a href="/#">Подробнее</a>} />
       </Table>
-      <div id="result-video-placeholder" />
+      <div id="result-video-placeholder" style={{ height: '500px', width: '100%' }}>
+        Видео:
+      </div>
     </>
   );
 };
