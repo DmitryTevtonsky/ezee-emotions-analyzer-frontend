@@ -1,6 +1,7 @@
 import { AnalyzeInitialData } from 'types';
 import { Badge, Table } from 'antd';
 import React, { FC, memo, useEffect } from 'react';
+import SockJS from 'sockjs-client';
 
 import css from './index.module.css';
 
@@ -33,32 +34,41 @@ interface TableProps {
 
 const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
   useEffect(() => {
-    try {
-      console.log(data);
-      const fileName = data.pathToOutputVideo.split('/').pop();
+    console.log(data);
+    const fileName = data.pathToOutputVideo.split('/').pop();
 
-      const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
+    const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
 
-      const video = document.createElement('video');
-      video.setAttribute('controls', 'true');
-      video.setAttribute('crossorigin', 'true');
-      video.autoplay = true;
-      video.controls = true;
-      video.muted = true;
+    const video = document.createElement('video');
+    video.setAttribute('controls', 'true');
+    video.setAttribute('crossorigin', 'true');
+    video.autoplay = true;
+    video.controls = true;
+    video.muted = true;
 
-      const source = document.createElement('source');
-      source.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
-      source.setAttribute('type', `video/webm`);
+    const source = document.createElement('source');
+    source.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
+    source.setAttribute('type', `video/webm`);
 
-      video.appendChild(source);
-      console.log({ data, resultVideoPlaceholder, video });
+    video.appendChild(source);
+    console.log({ data, resultVideoPlaceholder, video });
 
-      video.addEventListener('error', (e) => console.log(e), { once: true });
+    video.addEventListener('error', (e) => console.log(e), { once: true });
 
-      resultVideoPlaceholder?.appendChild(video);
-    } catch (error) {
-      console.log('!!', error);
-    }
+    resultVideoPlaceholder?.appendChild(video);
+
+    const sockjs = new SockJS('/ws');
+
+    sockjs.onopen = () => {
+      console.log('onopen', sockjs);
+      sockjs.send('kek');
+    };
+    sockjs.onmessage = (e: any) => {
+      console.log('onmessage', e.data);
+    };
+    sockjs.onclose = () => {
+      console.log('onclose');
+    };
   }, [data]);
 
   return (
