@@ -32,21 +32,9 @@ function* analyzerSaga(): SagaIterator {
           formData
         );
 
-        const fileName = data.pathToOutputVideo.split('/').pop();
-
         console.log('data, status', data, status);
 
         yield put(setInitialData(success(data)));
-
-        const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
-        const video = document.createElement('video');
-
-        video.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
-        video.setAttribute('type', 'video/mp4');
-
-        console.log({ data, resultVideoPlaceholder, video });
-
-        resultVideoPlaceholder?.appendChild(video);
       } catch (error) {
         const { response, config } = error as AxiosError;
         console.log({ error, status: response?.status, requestUrl: config?.url || '' });

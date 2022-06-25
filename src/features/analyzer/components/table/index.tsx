@@ -1,5 +1,6 @@
+import { AnalyzeInitialData } from 'types';
 import { Badge, Table } from 'antd';
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 
 const { Column } = Table;
 
@@ -25,10 +26,25 @@ const fakeData: any[] = [
 ];
 
 interface TableProps {
-  data: any[];
+  data: AnalyzeInitialData;
 }
 
-const ResultTable: FC<TableProps> = () => {
+const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
+  useEffect(() => {
+    console.log(data);
+    const fileName = data.pathToOutputVideo.split('/').pop();
+
+    const resultVideoPlaceholder = document.getElementById('result-video-placeholder');
+    const video = document.createElement('video');
+
+    video.setAttribute('src', `http://84.252.137.43:3000/output/${fileName}`);
+    video.setAttribute('type', 'video/mp4');
+
+    console.log({ data, resultVideoPlaceholder, video });
+
+    resultVideoPlaceholder?.appendChild(video);
+  }, [data]);
+
   return (
     <>
       <Table dataSource={fakeData} rowKey="id">
