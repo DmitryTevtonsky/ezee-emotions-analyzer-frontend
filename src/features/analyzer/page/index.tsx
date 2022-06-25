@@ -4,40 +4,31 @@ import { AnalyzeInitialData } from 'types';
 import { fold } from 'libs/remote';
 import { useAppSelector } from 'store';
 
-import { Controls } from '../components';
-import { selectAnalyzisData, selectInitialData } from '../redux/selectors';
+import { Loader } from 'core/components/loader';
 
-import AnalyzisFailure from './failure';
-import AnalyzisLoading from './loading';
-import AnalyzisSuccess from './success';
+import { Controls, ResultTable } from '../components';
+import { selectInitialData } from '../redux/selectors';
 
 import css from './index.module.css';
 
 const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
-  (data) => <AnalyzisSuccess data={data} />,
+  (data) => <>
+  Успешно: {data.path}
+  <br></br>
+  <ResultTable data={data.data}></ResultTable>
+  </>,
   () => <></>,
-  () => <AnalyzisLoading />,
-  (error) => <AnalyzisFailure error={error} />
+  () => <Loader />,
+  () => <>request failed</>
 );
 
 const AnalyzerIndex: FC = () => {
-  const analisisInitialData = useAppSelector(selectInitialData);
-
-  const analisisData = useAppSelector(selectAnalyzisData);
+  const analyzeInitialData = useAppSelector(selectInitialData);
 
   return (
     <div className={css.layout}>
       <Controls />
-      {/* <iframe
-          title="LIVE Nevskiy avenue St. Petersburg Russia, Gostiny Dvor. Невский пр. Санкт-Петербург, Гостиный двор"
-          width="720"
-          height="405"
-          src="https://www.youtube.com/embed/h1wly909BYw"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          frameBorder="0"
-          allowFullScreen
-        /> */}
-      {/* {analyzerInitialDataFolder(analisisInitialData)} */}
+      {analyzerInitialDataFolder(analyzeInitialData)}
     </div>
   );
 };

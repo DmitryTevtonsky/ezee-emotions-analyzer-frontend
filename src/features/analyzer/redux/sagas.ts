@@ -5,15 +5,15 @@ import { all, put, takeLatest } from 'redux-saga/effects';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { AnalyzeInitialData } from 'types';
-import { pending } from 'libs/remote';
+import { pending, success } from 'libs/remote';
 
 import { sendDataToAnalyzis, setInitialData } from './slice';
 
 const axiosInstance = axios.create({
-  baseURL: `${window.location.origin}:3000`, // 'http://127.0.0.1:3000',
+  baseURL: `${window.location.origin.replace(':8080', '')}:3000`, // 'http://127.0.0.1:3000',
 });
 
-console.log(`${window.location.origin}:3000`);
+console.log(`${window.location.origin.replace(':8080', '')}:3000`);
 
 function* analyzerSaga(): SagaIterator {
   yield all([
@@ -33,6 +33,7 @@ function* analyzerSaga(): SagaIterator {
         );
 
         console.log('data, status', data, status);
+        yield put(setInitialData(success(data)));
       } catch (error) {
         const { response, config } = error as AxiosError;
         console.log({ status: response?.status, requestUrl: config?.url || '' });

@@ -112,6 +112,9 @@ const Controls: FC = () => {
               onChange={handleChangeUpload}
               maxCount={1}
               listType="picture"
+              showUploadList={{
+                showRemoveIcon: false,
+              }}
               fileList={uploadFileList}
             >
               <Button icon={<UploadOutlined />}>Загрузить</Button>

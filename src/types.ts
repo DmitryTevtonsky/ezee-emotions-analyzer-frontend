@@ -9,9 +9,8 @@ export type FormFields = {
 };
 
 export type AnalyzeInitialData = {
-  ar_id: string;
-  text?: string;
-  title?: string;
+  path?: string;
+  data: any[];
 };
 
 export type AnalyzisData = {
