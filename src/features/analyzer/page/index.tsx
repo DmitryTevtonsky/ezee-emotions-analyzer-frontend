@@ -16,7 +16,7 @@ const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
     <>
       Успешно: {data.path}
       <br />
-      <ResultTable data={data.data} />
+      <ResultTable data={data} />
     </>
   ),
   () => <></>,
