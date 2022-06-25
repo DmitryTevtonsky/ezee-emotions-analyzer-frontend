@@ -1,6 +1,5 @@
 import { AnalyzeInitialData } from 'types';
 import { Badge, Table } from 'antd';
-import { io } from 'socket.io-client';
 import React, { FC, memo, useEffect } from 'react';
 
 import css from './index.module.css';
@@ -56,20 +55,6 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
     video.addEventListener('error', (e) => console.log(e), { once: true });
 
     resultVideoPlaceholder?.appendChild(video);
-
-    const socket = io('http://84.252.137.43:3000');
-
-    socket.on('connect', () => {
-      console.log('connect'); // x8WIv7-mJelg7on_ALbx
-    });
-
-    socket.on('finished', (msg: any) => {
-      console.log('finished', msg); // undefined
-    });
-
-    socket.on('disconnect', () => {
-      console.log('disconnect'); // undefined
-    });
   }, [data]);
 
   return (

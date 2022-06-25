@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import { io } from 'socket.io-client';
+import React, { FC, useEffect } from 'react';
 
 import { AnalyzeInitialData } from 'types';
 import { fold } from 'libs/remote';
@@ -26,6 +27,22 @@ const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
 
 const AnalyzerIndex: FC = () => {
   const analyzeInitialData = useAppSelector(selectInitialData);
+
+  useEffect(() => {
+    const socket = io('http://84.252.137.43:3000');
+
+    socket.on('connect', () => {
+      console.log('connect'); // x8WIv7-mJelg7on_ALbx
+    });
+
+    socket.on('finished', (msg: any) => {
+      console.log('finished', msg); // undefined
+    });
+
+    socket.on('disconnect', () => {
+      console.log('disconnect'); // undefined
+    });
+  }, []);
 
   return (
     <div className={css.layout}>
