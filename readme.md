@@ -1,4 +1,4 @@
-Фронтенд Ezyy News Analyzer для 1го кейса хакатона MoscowCityHack2022.
+Фронтенд Ezyy Emotions Analyzer для 2го кейса хакатона "Цифровой прорыв".
 
 Стэк:
 React
