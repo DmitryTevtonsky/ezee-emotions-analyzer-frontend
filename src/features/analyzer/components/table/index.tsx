@@ -52,7 +52,7 @@ const ResultTable: FC<TableProps> = ({ data }: TableProps) => {
 
   return (
     <>
-      <Table dataSource={fakeData} rowKey="id">
+      <Table dataSource={fakeData} rowKey="id" pagination={false}>
         <Table.Column title="ID ученика" dataIndex="id" key="id" />
 
         <Column title="ФИО" dataIndex="fullName" key="fullName" />
