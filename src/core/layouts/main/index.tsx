@@ -13,7 +13,7 @@ const About = () => {
       <span>API: http://84.252.137.43:3000/swagger</span>
       <span>Github Фронтенд: https://github.com/DmitryTevtonsky/ezee-emotions-analyzer-frontend</span>
       <span>Github Бэкенд сервис: https://github.com/DmitryTevtonsky/ezee-emotions-analyzer-frontend</span>
-      <span>Github DataScience сервис: </span>
+      <span>Github DataScience сервис: https://github.com/korney3/open_vino_face_recognition</span>
       <br />
     </div>
   );

@@ -10,8 +10,11 @@ import { Loader } from 'core/components/loader';
 import { Controls, ResultTable } from '../components';
 import { selectInitialData } from '../redux/selectors';
 
+import { Typography } from 'antd';
 import { setAnalysisData } from '../redux/slice';
 import css from './index.module.css';
+
+const { Title, Paragraph } = Typography;
 
 const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
   (data) => (
@@ -21,7 +24,18 @@ const analyzerInitialDataFolder = fold<AnalyzeInitialData>(
       <ResultTable data={data} />
     </>
   ),
-  () => <></>,
+  () => (
+    <>
+      <Typography>
+        <Title level={2}>Важно!</Title>
+        <Paragraph>
+          На текущий момент система работает максимально стабильно, когда ее использует один человек.
+        </Paragraph>
+        <Paragraph>Cреднее время загрузки, обработки и возврата обработанного видео занимает 10-20 секунд </Paragraph>
+        <Paragraph>В будущем будет улучшена параллельная работа и время реакции системы!</Paragraph>
+      </Typography>
+    </>
+  ),
   () => <Loader />,
   () => <>request failed</>
 );
